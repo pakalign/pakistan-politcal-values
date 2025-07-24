@@ -67,7 +67,7 @@ const questions = [
   { statement: "The state should offer free university education only to those with top academic performance", scores: {"PTI":1,"PML-N":1,"PPP":1,"JI":0,"MQM":1,"TLP":0,"JUI-F":0,"ANP":0,"BAP":1,"BNP(M)":1,"Bajwa":0,"Asim Munir":0} },
   { statement: "Civic education (democracy, constitution) should be mandatory in all schools", scores: {"PTI":1,"PML-N":1,"PPP":2,"JI":-1,"MQM":1,"TLP":-1,"JUI-F":-1,"ANP":1,"BAP":1,"BNP(M)":1,"Bajwa":0,"Asim Munir":0} }
 ];
-// The rest of your JS code below (form building, scoring, etc.) stays the same!
+
 const form = document.getElementById('quizForm');
 questions.forEach((q, i) => {
   const div = document.createElement('div');
