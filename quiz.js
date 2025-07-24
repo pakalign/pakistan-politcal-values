@@ -7,13 +7,10 @@ const scales = {
   "Strongly Disagree":-2
 };
 const questions = [
-  // ... (your 60 questions here, unchanged, as already in your file)
   { statement: "The government should provide free healthcare and education to all, even if it means raising taxes", scores: {"PTI":1,"PML-N":1,"PPP":2,"JI":-1,"MQM":0,"TLP":-1,"JUI-F":-1,"ANP":1,"BAP":0,"BNP(M)":0,"Bajwa":0,"Asim Munir":0} },
-  // ... rest of the questions ...
-  { statement: "Civic education (democracy, constitution) should be mandatory in all schools", scores: {"PTI":1,"PML-N":1,"PPP":2,"JI":-1,"MQM":1,"TLP":-1,"JUI-F":-1,"ANP":1,"BAP":1,"BNP(M)":1,"Bajwa":0,"Asim Munir":0} }
+  // ...add the rest of your questions here!
 ];
 
-// Show one question at a time
 let current = 0;
 let userAnswers = Array(questions.length).fill(null);
 
@@ -29,7 +26,7 @@ form.parentNode.insertBefore(progressDiv, form);
 
 function renderQuestion(index) {
   progressDiv.innerHTML = `<strong>Question ${index+1} of ${questions.length}</strong>`;
-  form.innerHTML = ""; // clear previous question
+  form.innerHTML = "";
 
   const q = questions[index];
   const div = document.createElement('div');
@@ -53,7 +50,8 @@ function renderQuestion(index) {
     backBtn.type = "button";
     backBtn.onclick = function() {
       saveAnswer();
-      renderQuestion(index-1);
+      current -= 1;
+      renderQuestion(current);
     };
     navDiv.appendChild(backBtn);
   }
@@ -64,7 +62,12 @@ function renderQuestion(index) {
     nextBtn.style.marginLeft = "1em";
     nextBtn.onclick = function() {
       if (saveAnswer()) {
-        renderQuestion(ind
+        current += 1;
+        renderQuestion(current);
+      } else {
+        alert('Please select an answer!');
+      }
+    };
     navDiv.appendChild(nextBtn);
     submitBtn.style.display = "none";
   } else {
@@ -107,8 +110,4 @@ submitBtn.onclick = function(e) {
   submitBtn.style.display = "none";
 };
 
-renderQuestion(current);ex+1);
-      } else {
-        alert('Please select an answer!');
-      }
-    };
+renderQuestion(current);
