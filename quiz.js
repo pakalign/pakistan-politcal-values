@@ -7,8 +7,11 @@ const scales = {
   "Strongly Disagree":-2
 };
 const questions = [
-  { statement: "The government should provide free healthcare and education to all, even if it means raising taxes", scores: {"PTI":1,"PML-N":1,"PPP":2,"JI":-1,"MQM":0,"TLP":-1,"JUI-F":-1,"ANP":1,"BAP":0,"BNP(M)":0,"Bajwa":0,"Asim Munir":0} },
-  // ...add the rest of your questions here!
+  { 
+    statement: "The government should provide free healthcare and education to all, even if it means raising taxes", 
+    scores: {"PTI":1,"PML-N":1,"PPP":2,"JI":-1,"MQM":0,"TLP":-1,"JUI-F":-1,"ANP":1,"BAP":0,"BNP(M)":0,"Bajwa":0,"Asim Munir":0} 
+  }
+  // Add more questions here!
 ];
 
 let current = 0;
