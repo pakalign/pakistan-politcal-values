@@ -1,0 +1,7 @@
+body { font-family: Arial, sans-serif; background: #f9f9f9; color: #222; margin: 0; padding: 2em; }
+h1 { color: #005ca9; }
+.question { background: #fff; padding: 1em; margin: 1em 0; border-radius: 4px; }
+label { margin-right: 1em; }
+#results { margin-top: 2em; background: #e6f2ff; padding: 1em; border-radius: 4px; }
+button { padding: 0.5em 2em; background: #005ca9; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+button:hover { background: #003e6f; }
