@@ -12,6 +12,7 @@ const leaders = [
   "Qamar Javed Bajwa",
   "Asim Munir"
 ];
+
 const scales = {
   "Strongly Agree":2,
   "Agree":1,
@@ -19,6 +20,7 @@ const scales = {
   "Disagree":-1,
   "Strongly Disagree":-2
 };
+
 const questions = [
   { statement: "The government should provide free healthcare and education to all, even if it means raising taxes", scores: {"Imran Khan":1,"Nawaz Sharif":1,"Bilawal Bhutto":2,"Siraj ul Haq":-1,"Khalid Maqbool Siddiqui":0,"Saad Rizvi":-1,"Fazlur Rehman":-1,"Asfandyar Wali Khan":1,"Abdul Quddus Bizenjo":0,"Akhtar Mengal":0,"Qamar Javed Bajwa":0,"Asim Munir":0} },
   { statement: "Prices of fuel, gas, and electricity should be kept low through subsidies even if it increases Pakistan's debt", scores: {"Imran Khan":1,"Nawaz Sharif":1,"Bilawal Bhutto":1,"Siraj ul Haq":0,"Khalid Maqbool Siddiqui":1,"Saad Rizvi":0,"Fazlur Rehman":0,"Asfandyar Wali Khan":0,"Abdul Quddus Bizenjo":1,"Akhtar Mengal":1,"Qamar Javed Bajwa":0,"Asim Munir":0} },
@@ -80,6 +82,22 @@ const questions = [
   { statement: "The state should offer free university education only to those with top academic performance", scores: {"Imran Khan":1,"Nawaz Sharif":1,"Bilawal Bhutto":1,"Siraj ul Haq":0,"Khalid Maqbool Siddiqui":1,"Saad Rizvi":0,"Fazlur Rehman":0,"Asfandyar Wali Khan":0,"Abdul Quddus Bizenjo":1,"Akhtar Mengal":1,"Qamar Javed Bajwa":0,"Asim Munir":0} },
   { statement: "Civic education (democracy, constitution) should be mandatory in all schools", scores: {"Imran Khan":1,"Nawaz Sharif":1,"Bilawal Bhutto":2,"Siraj ul Haq":-1,"Khalid Maqbool Siddiqui":1,"Saad Rizvi":-1,"Fazlur Rehman":-1,"Asfandyar Wali Khan":1,"Abdul Quddus Bizenjo":1,"Akhtar Mengal":1,"Qamar Javed Bajwa":0,"Asim Munir":0} }
 ];
+
+// Color map for leaders
+const leaderColors = {
+  "Imran Khan":"#008000",
+  "Nawaz Sharif":"#212529",
+  "Bilawal Bhutto":"#e4002b",
+  "Siraj ul Haq":"#006c9a",
+  "Khalid Maqbool Siddiqui":"#d50032",
+  "Saad Rizvi":"#ffd600",
+  "Fazlur Rehman":"#ff9800",
+  "Asfandyar Wali Khan":"#c62828",
+  "Abdul Quddus Bizenjo":"#00bcd4",
+  "Akhtar Mengal":"#795548",
+  "Qamar Javed Bajwa":"#485563",
+  "Asim Munir":"#1565c0"
+};
 
 let current = 0;
 let userAnswers = Array(questions.length).fill(null);
@@ -177,22 +195,6 @@ function saveAnswer() {
   return true;
 }
 
-// Color map for parties (add more colors if you like!)
-const partyColors = {
-  "PTI":"#008000",
-  "PML-N":"#212529",
-  "PPP":"#e4002b",
-  "JI":"#006c9a",
-  "MQM":"#d50032",
-  "TLP":"#ffd600",
-  "JUI-F":"#ff9800",
-  "ANP":"#c62828",
-  "BAP":"#00bcd4",
-  "BNP(M)":"#795548",
-  "Bajwa":"#485563",
-  "Asim Munir":"#1565c0"
-};
-
 submitBtn.onclick = function(e) {
   e.preventDefault();
   if (!saveAnswer()) {
@@ -201,18 +203,18 @@ submitBtn.onclick = function(e) {
   }
   // Calculate results
   const scores = {};
-  for (const party of parties) scores[party] = 0;
+  for (const leader of leaders) scores[leader] = 0;
   questions.forEach((q, i) => {
-    for (const party of parties) {
-      scores[party] += (2 - Math.abs(userAnswers[i] - q.scores[party]));
+    for (const leader of leaders) {
+      scores[leader] += (2 - Math.abs(userAnswers[i] - q.scores[leader]));
     }
   });
   const maxScore = questions.length * 2;
   const results = Object.entries(scores)
     .sort((a,b)=>b[1]-a[1])
-    .map(([party, score], i) =>
-      `<li style="margin-bottom:0.5em;font-weight:${i==0?"bold":"normal"};font-size:${i==0?"1.15em":"1em"};background:${partyColors[party]+"33"};color:${partyColors[party]};border-radius:8px;padding:0.4em 1.2em;">
-        ${party}: ${(score/maxScore*100).toFixed(1)}%
+    .map(([leader, score], i) =>
+      `<li style="margin-bottom:0.5em;font-weight:${i==0?"bold":"normal"};font-size:${i==0?"1.15em":"1em"};background:${leaderColors[leader]+"33"};color:${leaderColors[leader]};border-radius:8px;padding:0.4em 1.2em;">
+        ${leader}: ${(score/maxScore*100).toFixed(1)}%
       </li>`
     ).join("");
   resultsDiv.innerHTML =
